@@ -1,0 +1,96 @@
+.navbar {
+  position: sticky; /* Stays at top when scrolling */
+  top: 0;
+  left: 0;
+  width: 96%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #c71f2d; /* Consistent dark background */
+  padding: 12px 40px;
+  color: rgb(9, 8, 8);
+  font-family: Arial, sans-serif;
+  z-index: 1000; /* Ensures it appears above other content */
+}
+
+/* Logo */
+.navbar-logo {
+  font-size: 22px;
+  font-weight: bold;
+  color: #eeeaeb;
+  letter-spacing: 1px;
+}
+
+/* Menu */
+.navbar-links {
+  list-style: none;
+  display: flex;
+  gap: 30px;
+}
+
+.navbar-links li a {
+  display: flex;
+  align-items: center;
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+  position: relative;
+}
+
+.nav-icon {
+  width: 20px;
+  height: 20px;
+  stroke-width: 2;
+  stroke: #ffffff; /* White stroke */
+  fill: none;
+}
+
+.nav-text {
+  margin-left: 8px;
+  opacity: 1; /* Always visible */
+  visibility: visible;
+  transform: translateX(0);
+}
+
+/* Buttons */
+.navbar-buttons {
+  display: flex;
+  gap: 15px;
+}
+
+.btn {
+  background: transparent;
+  border: 1px solid #c71f2d;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.btn:hover {
+  background: #c71f2d;
+  color: #0d1b2a;
+}
+
+.btn-icon {
+  width: 20px;
+  height: 20px;
+  stroke-width: 2.5;
+  stroke: #f6efef; /* Default stroke */
+  fill: none;
+}
+
+.btn:hover .btn-icon {
+  stroke: #0d1b2a;
+}
+
+.btn-text {
+  margin-left: 8px;
+  opacity: 1; /* Always visible */
+  visibility: visible;
+  transform: translateX(0);
+}

@@ -1,0 +1,84 @@
+.hc-footer {
+  background: #0d1b2a;
+  color: #ffffff;
+  font-family: "Segoe UI", Arial, sans-serif;
+  padding-top: 40px;
+  margin-top: 50px;
+}
+
+.hc-footer-container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 0 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 30px;
+}
+
+/* Brand */
+.hc-footer-logo {
+  font-size: 24px;
+  font-weight: bold;
+  color: #e63946;
+}
+
+.hc-footer-about {
+  font-size: 14px;
+  margin: 12px 0 20px;
+  line-height: 1.6;
+  color: #cbd5e0;
+}
+
+.hc-footer-socials a {
+  color: #a8dadc;
+  margin-right: 12px;
+  font-size: 18px;
+  transition: 0.3s;
+}
+
+.hc-footer-socials a:hover {
+  color: #e63946;
+}
+
+/* Links & Contact */
+.hc-footer-links h4,
+.hc-footer-contact h4 {
+  font-size: 16px;
+  margin-bottom: 12px;
+  color: #f1faee;
+}
+
+.hc-footer-links ul {
+  list-style: none;
+  padding: 0;
+}
+
+.hc-footer-links li {
+  margin: 8px 0;
+}
+
+.hc-footer-links a {
+  color: #a8dadc;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.hc-footer-links a:hover {
+  color: #e63946;
+}
+
+.hc-footer-contact p {
+  font-size: 14px;
+  margin: 6px 0;
+  color: #a8dadc;
+}
+
+/* Bottom Bar */
+.hc-footer-bottom {
+  text-align: center;
+  border-top: 1px solid #2d3d55;
+  margin-top: 30px;
+  padding: 15px 0;
+  font-size: 13px;
+  color: #cbd5e0;
+}

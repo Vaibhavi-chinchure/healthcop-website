@@ -1,0 +1,30 @@
+.punch-controls {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.punch-controls button {
+  padding: 10px 20px;
+  margin: 0 8px;
+  font-size: 15px;
+  border: none;
+  background: #0f172a;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.punch-controls button:disabled {
+  background: gray;
+  cursor: not-allowed;
+}
+
+.info-panel {
+  background: #ffffff;
+  padding: 15px;
+  border-radius: 8px;
+  font-size: 15px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  display: flex;
+  justify-content: space-around;
+}

@@ -1,0 +1,1368 @@
+/* 
+
+.am-doctor-nurse-tooltip-cell {
+  position: relative;
+}
+
+.am-doctor-nurse-tooltip-text {
+  visibility: hidden;
+  width: 200px;
+  background-color: #333;
+  color: #fff;
+  text-align: left;
+  padding: 10px;
+  border-radius: 4px;
+  position: absolute;
+  z-index: 10;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.am-doctor-nurse-tooltip-cell:hover .am-doctor-nurse-tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+.am-doctor-nurse-container {
+  margin: 100px auto 0;
+  max-width: 1200px;
+  padding: 20px;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  box-sizing: border-box;
+  background-color: #ffffff;
+  min-height: 100vh;
+}
+
+.am-error-message {
+  color: #d32f2f;
+  margin-bottom: 15px;
+  font-size: 14px;
+  font-weight: 500;
+  text-align: center;
+}
+
+.am-popup {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: #2e7d32;
+  color: white;
+  padding: 12px 24px;
+  border-radius: 6px;
+  z-index: 1000;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  font-size: 14px;
+}
+
+.am-site-details-popup,
+.am-data-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.am-site-details-popup-content,
+.am-data-popup-content {
+  background-color: #ffffff;
+  padding: 24px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  max-width: 600px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.am-site-details-popup-content h3,
+.am-data-popup-content h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #212121;
+  text-align: center;
+}
+
+.am-sites-details {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.am-site-item {
+  padding: 12px;
+  background-color: #fafafa;
+  border-radius: 4px;
+  border: 1px solid #e0e0e0;
+}
+
+.am-site-item h4 {
+  margin: 0 0 12px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #212121;
+}
+
+.am-site-details-table,
+.am-data-details-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background-color: #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.am-site-details-table th,
+.am-site-details-table td,
+.am-data-details-table th,
+.am-data-details-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid #e0e0e0;
+  text-align: left;
+  font-size: 14px;
+  vertical-align: middle;
+}
+
+.am-site-details-table th,
+.am-data-details-table th {
+  background-color: #1976d2;
+  color: white;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 13px;
+}
+
+.am-site-details-table td,
+.am-data-details-table td {
+  color: #424242;
+}
+
+.am-site-details-table tr:last-child td,
+.am-data-details-table tr:last-child td {
+  border-bottom: none;
+}
+
+.am-site-details-table tr:nth-child(even),
+.am-data-details-table tr:nth-child(even) {
+  background-color: #f5f5f5;
+}
+
+.am-site-details-table tr:hover,
+.am-data-details-table tr:hover {
+  background-color: #e3f2fd;
+}
+
+.am-site-details-table a,
+.am-data-details-table a {
+  color: #1976d2;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.am-site-details-table a:hover,
+.am-data-details-table a:hover {
+  text-decoration: underline;
+}
+
+.am-close-popup-btn {
+  background-color: #6c757d;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background-color 0.2s, transform 0.2s ease;
+  align-self: center;
+  margin-top: 16px;
+  width: 120px;
+}
+
+.am-close-popup-btn:hover {
+  background-color: #5a6268;
+  transform: translateY(-2px);
+}
+
+.am-doctor-nurse-management-form {
+  background-color: #ffffff;
+  padding: 24px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  max-height: 80vh;
+  overflow-y: auto;
+  position: relative;
+}
+
+.am-doctor-nurse-management-form::-webkit-scrollbar {
+  width: 8px;
+}
+
+.am-doctor-nurse-management-form::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.am-doctor-nurse-management-form::-webkit-scrollbar-thumb {
+  background: #1976d2;
+  border-radius: 4px;
+}
+
+.am-doctor-nurse-management-form::-webkit-scrollbar-thumb:hover {
+  background: #1565c0;
+}
+
+.am-doctor-nurse-form-section {
+  margin-bottom: 24px;
+  padding: 16px;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  background-color: #fafafa;
+}
+
+.am-doctor-nurse-form-section h4 {
+  margin: 0 0 16px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #212121;
+}
+
+.am-doctor-nurse-form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 16px;
+}
+
+.am-form-field {
+  display: flex;
+  flex-direction: column;
+}
+
+.am-form-field label {
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 8px;
+  color: #424242;
+}
+
+.am-form-input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #bdbdbd;
+  border-radius: 4px;
+  font-size: 14px;
+  background-color: #ffffff;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  box-sizing: border-box;
+}
+
+.am-form-input:focus {
+  border-color: #1976d2;
+  box-shadow: 0 0 4px rgba(25, 118, 210, 0.3);
+  outline: none;
+}
+
+.am-form-input[type="file"] {
+  padding: 10px;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.am-form-input[name="residence"] {
+  max-width: 100%;
+}
+
+.am-form-input[type="select"] {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23424242' d='M10.293 3.293L6 7.586 1.707 3.293A1 1 0 00.293 4.707l5 5a1 1 0 001.414 0l5-5a1 1 0 10-1.414-1.414z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+}
+
+.am-required-asterisk {
+  color: #d32f2f;
+  margin-left: 4px;
+}
+
+.am-doctor-nurse-button-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 24px;
+  align-items: center;
+}
+
+.am-form-action-buttons {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+}
+
+.am-doctor-nurse-submit-btn,
+.am-doctor-nurse-cancel-btn,
+.am-add-person-btn,
+.am-remove-person-btn,
+.am-doctor-nurse-back-btn,
+.am-view-details-btn {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background-color 0.2s, transform 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.am-doctor-nurse-submit-btn {
+  background-color: #2e7d32;
+  color: white;
+  width: 180px;
+}
+
+.am-doctor-nurse-submit-btn:hover {
+  background-color: #1b5e20;
+  transform: translateY(-2px);
+}
+
+.am-doctor-nurse-submit-btn:disabled {
+  background-color: #9e9e9e;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.am-doctor-nurse-cancel-btn {
+  background-color: #d32f2f;
+  color: white;
+  width: 180px;
+}
+
+.am-doctor-nurse-cancel-btn:hover {
+  background-color: #b71c1c;
+  transform: translateY(-2px);
+}
+
+.am-add-person-btn {
+  background-color: #0288d1;
+  color: white;
+  width: 180px;
+}
+
+.am-add-person-btn:hover {
+  background-color: #0277bd;
+  transform: translateY(-2px);
+}
+
+.am-add-person-btn:disabled {
+  background-color: #9e9e9e;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.am-remove-person-btn {
+  background-color: #d32f2f;
+  color: white;
+  padding: 6px 12px;
+  font-size: 12px;
+}
+
+.am-remove-person-btn:hover {
+  background-color: #b71c1c;
+}
+
+.am-doctor-nurse-back-btn {
+  background-color: #6c757d;
+  color: white;
+  padding: 10px 20px;
+  font-size: 14px;
+}
+
+.am-doctor-nurse-back-btn:hover {
+  background-color: #5a6268;
+  transform: translateY(-2px);
+}
+
+.am-view-details-btn {
+  background-color: transparent;
+  color: #1976d2;
+  padding: 4px;
+}
+
+.am-view-details-btn:hover {
+  color: #1565c0;
+}
+
+.am-doctor-nurse-action-buttons,
+.am-action-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.am-action-btn {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.2s ease;
+  width: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.am-action-btn.am-doctor-nurse-form-btn {
+  background-color: #1976d2;
+  color: #ffffff;
+}
+
+.am-action-btn.am-doctor-nurse-form-btn:hover {
+  background-color: #1565c0;
+  transform: translateY(-2px);
+}
+
+.am-action-btn.am-form-btn {
+  background-color: #2e7d32;
+  color: #ffffff;
+}
+
+.am-action-btn.am-form-btn:hover {
+  background-color: #1b5e20;
+  transform: translateY(-2px);
+}
+
+.am-action-btn:disabled {
+  background-color: #9e9e9e;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.am-doctor-nurse-tabs-container,
+.am-tabs-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.am-doctor-nurse-tabs,
+.am-tabs {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 20px;
+}
+
+.am-doctor-nurse-tab,
+.am-tab {
+  background: none;
+  border: none;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 8px 0;
+  color: #424242;
+  transition: color 0.2s;
+}
+
+.am-doctor-nurse-tab.active,
+.am-tab.active {
+  border-bottom: 3px solid #1976d2;
+  color: #1976d2;
+  font-weight: 600;
+}
+
+.am-doctor-nurse-tab:hover,
+.am-tab:hover {
+  color: #1565c0;
+}
+
+.am-doctor-nurse-data-table,
+.am-data-table {
+  margin-top: 16px;
+  overflow-x: auto;
+}
+
+.am-doctor-nurse-table {
+  width: 100%;
+  min-width: 800px;
+  border-collapse: separate;
+  border-spacing: 0;
+  background-color: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.am-doctor-nurse-table th,
+.am-doctor-nurse-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid #e0e0e0;
+  text-align: left;
+  font-size: 14px;
+  vertical-align: middle;
+}
+
+.am-doctor-nurse-table th {
+  background-color: #1976d2;
+  color: white;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 13px;
+}
+
+.am-doctor-nurse-table td {
+  color: #424242;
+}
+
+.am-doctor-nurse-table tr:last-child td {
+  border-bottom: none;
+}
+
+.am-doctor-nurse-table tr:nth-child(even) {
+  background-color: #f5f5f5;
+}
+
+.am-doctor-nurse-table tr:hover {
+  background-color: #e3f2fd;
+}
+
+.am-doctor-nurse-table th:nth-child(1),
+.am-doctor-nurse-table td:nth-child(1) {
+  width: 80px;
+}
+
+.am-doctor-nurse-table th:nth-child(2),
+.am-doctor-nurse-table td:nth-child(2) {
+  width: 200px;
+}
+
+.am-doctor-nurse-table th:nth-child(3),
+.am-doctor-nurse-table td:nth-child(3) {
+  width: 100px;
+}
+
+.am-doctor-nurse-table th:nth-child(4),
+.am-doctor-nurse-table td:nth-child(4) {
+  width: 150px;
+}
+
+.am-doctor-nurse-table th:nth-child(5),
+.am-doctor-nurse-table td:nth-child(5) {
+  width: 150px;
+}
+
+.am-doctor-nurse-table th:nth-child(6),
+.am-doctor-nurse-table td:nth-child(6) {
+  width: 100px;
+  text-align: center;
+}
+
+.am-doctor-nurse-tooltip-cell {
+  position: relative;
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.am-doctor-nurse-tooltip-text {
+  visibility: hidden;
+  background-color: #424242;
+  color: white;
+  text-align: center;
+  border-radius: 4px;
+  padding: 8px;
+  position: absolute;
+  z-index: 10;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: normal;
+  max-width: 300px;
+  font-size: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.am-doctor-nurse-tooltip-cell:hover .am-doctor-nurse-tooltip-text {
+  visibility: visible;
+}
+
+@media (max-width: 768px) {
+  .am-doctor-nurse-container {
+    padding: 16px;
+    margin-top: 80px;
+  }
+
+  .am-doctor-nurse-data-table,
+  .am-data-table {
+    overflow-x: auto;
+  }
+
+  .am-doctor-nurse-table {
+    min-width: 800px;
+  }
+
+  .am-doctor-nurse-form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .am-doctor-nurse-action-buttons,
+  .am-action-buttons,
+  .am-doctor-nurse-button-container {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .am-form-action-buttons {
+    flex-direction: column;
+  }
+
+  .am-action-btn,
+  .am-doctor-nurse-submit-btn,
+  .am-doctor-nurse-cancel-btn,
+  .am-add-person-btn,
+  .am-doctor-nurse-back-btn {
+    width: 100%;
+  }
+
+  .am-site-details-popup-content,
+  .am-data-popup-content {
+    width: 95%;
+    max-height: 90vh;
+    padding: 16px;
+  }
+
+  .am-site-details-table,
+  .am-data-details-table {
+    min-width: 100%;
+  }
+
+  .am-close-popup-btn {
+    width: 100%;
+  }
+}
+.am-edit-btn {
+  background-color: #ffc107;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+.am-edit-btn:hover {
+  background-color: #e0a800;
+} */
+
+
+/* Existing CSS remains unchanged, adding styles for file input container and existing file display */
+.am-doctor-nurse-tooltip-cell {
+  position: relative;
+}
+
+.am-doctor-nurse-tooltip-text {
+  visibility: hidden;
+  width: 200px;
+  background-color: #333;
+  color: #fff;
+  text-align: left;
+  padding: 10px;
+  border-radius: 4px;
+  position: absolute;
+  z-index: 10;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.am-doctor-nurse-tooltip-cell:hover .am-doctor-nurse-tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+
+.am-doctor-nurse-container {
+  margin: 100px auto 0;
+  max-width: 1200px;
+  padding: 20px;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  box-sizing: border-box;
+  background-color: #ffffff;
+  min-height: 100vh;
+}
+
+.am-error-message {
+  color: #d32f2f;
+  margin-bottom: 15px;
+  font-size: 14px;
+  font-weight: 500;
+  text-align: center;
+}
+
+.am-popup {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: #2e7d32;
+  color: white;
+  padding: 12px 24px;
+  border-radius: 6px;
+  z-index: 1000;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  font-size: 14px;
+}
+
+.am-site-details-popup,
+.am-data-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.am-site-details-popup-content,
+.am-data-popup-content {
+  background-color: #ffffff;
+  padding: 24px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  max-width: 600px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.am-site-details-popup-content h3,
+.am-data-popup-content h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #212121;
+  text-align: center;
+}
+
+.am-sites-details {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.am-site-item {
+  padding: 12px;
+  background-color: #fafafa;
+  border-radius: 4px;
+  border: 1px solid #e0e0e0;
+}
+
+.am-site-item h4 {
+  margin: 0 0 12px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #212121;
+}
+
+.am-site-details-table,
+.am-data-details-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background-color: #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.am-site-details-table th,
+.am-site-details-table td,
+.am-data-details-table th,
+.am-data-details-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid #e0e0e0;
+  text-align: left;
+  font-size: 14px;
+  vertical-align: middle;
+}
+
+.am-site-details-table th,
+.am-data-details-table th {
+  background-color: #1976d2;
+  color: white;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 13px;
+}
+
+.am-site-details-table td,
+.am-data-details-table td {
+  color: #424242;
+}
+
+.am-site-details-table tr:last-child td,
+.am-data-details-table tr:last-child td {
+  border-bottom: none;
+}
+
+.am-site-details-table tr:nth-child(even),
+.am-data-details-table tr:nth-child(even) {
+  background-color: #f5f5f5;
+}
+
+.am-site-details-table tr:hover,
+.am-data-details-table tr:hover {
+  background-color: #e3f2fd;
+}
+
+.am-site-details-table a,
+.am-data-details-table a {
+  color: #1976d2;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.am-site-details-table a:hover,
+.am-data-details-table a:hover {
+  text-decoration: underline;
+}
+
+.am-close-popup-btn {
+  background-color: #6c757d;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background-color 0.2s, transform 0.2s ease;
+  align-self: center;
+  margin-top: 16px;
+  width: 120px;
+}
+
+.am-close-popup-btn:hover {
+  background-color: #5a6268;
+  transform: translateY(-2px);
+}
+
+.am-doctor-nurse-management-form {
+  background-color: #ffffff;
+  padding: 24px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  max-height: 80vh;
+  overflow-y: auto;
+  position: relative;
+}
+
+.am-doctor-nurse-management-form::-webkit-scrollbar {
+  width: 8px;
+}
+
+.am-doctor-nurse-management-form::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.am-doctor-nurse-management-form::-webkit-scrollbar-thumb {
+  background: #1976d2;
+  border-radius: 4px;
+}
+
+.am-doctor-nurse-management-form::-webkit-scrollbar-thumb:hover {
+  background: #1565c0;
+}
+
+.am-doctor-nurse-form-section {
+  margin-bottom: 24px;
+  padding: 16px;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  background-color: #fafafa;
+}
+
+.am-doctor-nurse-form-section h4 {
+  margin: 0 0 16px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #212121;
+}
+
+.am-doctor-nurse-form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 16px;
+}
+
+.am-form-field {
+  display: flex;
+  flex-direction: column;
+}
+
+.am-form-field label {
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 8px;
+  color: #424242;
+}
+
+.am-form-input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #bdbdbd;
+  border-radius: 4px;
+  font-size: 14px;
+  background-color: #ffffff;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  box-sizing: border-box;
+}
+
+.am-form-input:focus {
+  border-color: #1976d2;
+  box-shadow: 0 0 4px rgba(25, 118, 210, 0.3);
+  outline: none;
+}
+
+.am-form-input[type="file"] {
+  padding: 10px;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.am-form-input[name="residence"] {
+  max-width: 100%;
+}
+
+.am-form-input[type="select"] {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23424242' d='M10.293 3.293L6 7.586 1.707 3.293A1 1 0 00.293 4.707l5 5a1 1 0 001.414 0l5-5a1 1 0 10-1.414-1.414z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+}
+
+.am-required-asterisk {
+  color: #d32f2f;
+  margin-left: 4px;
+}
+
+.am-doctor-nurse-button-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 24px;
+  align-items: center;
+}
+
+.am-form-action-buttons {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+}
+
+.am-doctor-nurse-submit-btn,
+.am-doctor-nurse-cancel-btn,
+.am-add-person-btn,
+.am-remove-person-btn,
+.am-doctor-nurse-back-btn,
+.am-view-details-btn {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background-color 0.2s, transform 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.am-doctor-nurse-submit-btn {
+  background-color: #2e7d32;
+  color: white;
+  width: 180px;
+}
+
+.am-doctor-nurse-submit-btn:hover {
+  background-color: #1b5e20;
+  transform: translateY(-2px);
+}
+
+.am-doctor-nurse-submit-btn:disabled {
+  background-color: #9e9e9e;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.am-doctor-nurse-cancel-btn {
+  background-color: #d32f2f;
+  color: white;
+  width: 180px;
+}
+
+.am-doctor-nurse-cancel-btn:hover {
+  background-color: #b71c1c;
+  transform: translateY(-2px);
+}
+
+.am-add-person-btn {
+  background-color: #0288d1;
+  color: white;
+  width: 180px;
+}
+
+.am-add-person-btn:hover {
+  background-color: #0277bd;
+  transform: translateY(-2px);
+}
+
+.am-add-person-btn:disabled {
+  background-color: #9e9e9e;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.am-remove-person-btn {
+  background-color: #d32f2f;
+  color: white;
+  padding: 6px 12px;
+  font-size: 12px;
+}
+
+.am-remove-person-btn:hover {
+  background-color: #b71c1c;
+}
+
+.am-doctor-nurse-back-btn {
+  background-color: #6c757d;
+  color: white;
+  padding: 10px 20px;
+  font-size: 14px;
+}
+
+.am-doctor-nurse-back-btn:hover {
+  background-color: #5a6268;
+  transform: translateY(-2px);
+}
+
+.am-view-details-btn {
+  background-color: transparent;
+  color: #1976d2;
+  padding: 4px;
+}
+
+.am-view-details-btn:hover {
+  color: #1565c0;
+}
+
+.am-doctor-nurse-action-buttons,
+.am-action-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.am-action-btn {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.2s ease;
+  width: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.am-action-btn.am-doctor-nurse-form-btn {
+  background-color: #1976d2;
+  color: #ffffff;
+}
+
+.am-action-btn.am-doctor-nurse-form-btn:hover {
+  background-color: #1565c0;
+  transform: translateY(-2px);
+}
+
+.am-action-btn.am-form-btn {
+  background-color: #2e7d32;
+  color: #ffffff;
+}
+
+.am-action-btn.am-form-btn:hover {
+  background-color: #1b5e20;
+  transform: translateY(-2px);
+}
+
+.am-action-btn:disabled {
+  background-color: #9e9e9e;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.am-doctor-nurse-tabs-container,
+.am-tabs-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.am-doctor-nurse-tabs,
+.am-tabs {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 20px;
+}
+
+.am-doctor-nurse-tab,
+.am-tab {
+  background: none;
+  border: none;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 8px 0;
+  color: #424242;
+  transition: color 0.2s;
+}
+
+.am-doctor-nurse-tab.active,
+.am-tab.active {
+  border-bottom: 3px solid #1976d2;
+  color: #1976d2;
+  font-weight: 600;
+}
+
+.am-doctor-nurse-tab:hover,
+.am-tab:hover {
+  color: #1565c0;
+}
+
+.am-doctor-nurse-data-table,
+.am-data-table {
+  margin-top: 16px;
+  overflow-x: auto;
+}
+
+.am-doctor-nurse-table {
+  width: 100%;
+  min-width: 800px;
+  border-collapse: separate;
+  border-spacing: 0;
+  background-color: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.am-doctor-nurse-table th,
+.am-doctor-nurse-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid #e0e0e0;
+  text-align: left;
+  font-size: 14px;
+  vertical-align: middle;
+}
+
+.am-doctor-nurse-table th {
+  background-color: #1976d2;
+  color: white;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 13px;
+}
+
+.am-doctor-nurse-table td {
+  color: #424242;
+}
+
+.am-doctor-nurse-table tr:last-child td {
+  border-bottom: none;
+}
+
+.am-doctor-nurse-table tr:nth-child(even) {
+  background-color: #f5f5f5;
+}
+
+.am-doctor-nurse-table tr:hover {
+  background-color: #e3f2fd;
+}
+
+.am-doctor-nurse-table th:nth-child(1),
+.am-doctor-nurse-table td:nth-child(1) {
+  width: 80px;
+}
+
+.am-doctor-nurse-table th:nth-child(2),
+.am-doctor-nurse-table td:nth-child(2) {
+  width: 200px;
+}
+
+.am-doctor-nurse-table th:nth-child(3),
+.am-doctor-nurse-table td:nth-child(3) {
+  width: 100px;
+}
+
+.am-doctor-nurse-table th:nth-child(4),
+.am-doctor-nurse-table td:nth-child(4) {
+  width: 150px;
+}
+
+.am-doctor-nurse-table th:nth-child(5),
+.am-doctor-nurse-table td:nth-child(5) {
+  width: 150px;
+}
+
+.am-doctor-nurse-table th:nth-child(6),
+.am-doctor-nurse-table td:nth-child(6) {
+  width: 100px;
+  text-align: center;
+}
+
+.am-doctor-nurse-tooltip-cell {
+  position: relative;
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.am-doctor-nurse-tooltip-text {
+  visibility: hidden;
+  background-color: #424242;
+  color: white;
+  text-align: center;
+  border-radius: 4px;
+  padding: 8px;
+  position: absolute;
+  z-index: 10;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: normal;
+  max-width: 300px;
+  font-size: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.am-doctor-nurse-tooltip-cell:hover .am-doctor-nurse-tooltip-text {
+  visibility: visible;
+}
+
+.am-file-input-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.am-existing-file {
+  font-size: 12px;
+  color: #424242;
+}
+
+.am-existing-file a {
+  color: #1976d2;
+  text-decoration: none;
+}
+
+.am-existing-file a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .am-doctor-nurse-container {
+    padding: 16px;
+    margin-top: 80px;
+  }
+
+  .am-doctor-nurse-data-table,
+  .am-data-table {
+    overflow-x: auto;
+  }
+
+  .am-doctor-nurse-table {
+    min-width: 800px;
+  }
+
+  .am-doctor-nurse-form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .am-doctor-nurse-action-buttons,
+  .am-action-buttons,
+  .am-doctor-nurse-button-container {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .am-form-action-buttons {
+    flex-direction: column;
+  }
+
+  .am-action-btn,
+  .am-doctor-nurse-submit-btn,
+  .am-doctor-nurse-cancel-btn,
+  .am-add-person-btn,
+  .am-doctor-nurse-back-btn {
+    width: 100%;
+  }
+
+  .am-site-details-popup-content,
+  .am-data-popup-content {
+    width: 95%;
+    max-height: 90vh;
+    padding: 16px;
+  }
+
+  .am-site-details-table,
+  .am-data-details-table {
+    min-width: 100%;
+  }
+
+  .am-close-popup-btn {
+    width: 100%;
+  }
+}
+
+.am-edit-btn {
+  background-color: #ffc107;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.am-edit-btn:hover {
+  background-color: #e0a800;
+}
