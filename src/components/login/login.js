@@ -828,7 +828,7 @@ function Login() {
 
       if (response.ok) {
         Cookies.set("loginEmail", email, { expires: 7, secure: true, sameSite: "Strict" });
-        const userRes = await fetch(`http://localhost:5000/api/user?email=${email}`);
+        const userRes = await fetch(`https://healthcop-website-backend.vercel.app//api/user?email=${email}`);
         const user = await userRes.json();
         setUserData(user);
 
