@@ -33,6 +33,10 @@
       "last 1 safari version"
     ]
   },
+  {
+  "type": "module"
+}
+
   "devDependencies": {
     "eslint-plugin-react-hooks": "^7.0.0"
   }
