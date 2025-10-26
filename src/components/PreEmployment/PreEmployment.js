@@ -1199,7 +1199,7 @@ function PreEmployment() {
     if (!showSiteSelection) return;
     const fetchSites = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/sites", {
+        const res = await axios.get("https://healthcop-website-backend-1-vm93.onrender.com/api/sites", {
           headers: { Authorization: `Bearer ${token}` },
         });
         setSites(res.data);
@@ -1219,7 +1219,7 @@ function PreEmployment() {
       setError("");
       try {
         const res = await axios.get(
-          `http://localhost:5000/api/pre-employment/site-records?site_id=${selectedSite}`,
+          `https://healthcop-website-backend-1-vm93.onrender.com/api/pre-employment/site-records?site_id=${selectedSite}`,
           { headers: { Authorization: `Bearer ${token}` } }
         );
         setRecords(res.data);
@@ -1276,7 +1276,7 @@ function PreEmployment() {
       if (payload.date) payload.date = formatDateForMySQL(payload.date);
       if (payload.date_of_birth) payload.date_of_birth = formatDateForMySQL(payload.date_of_birth);
       await axios.put(
-        `http://localhost:5000/api/pre-employment/update/${editRecord.id}`,
+        `https://healthcop-website-backend-1-vm93.onrender.com/api/pre-employment/update/${editRecord.id}`,
         payload,
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -1295,7 +1295,7 @@ function PreEmployment() {
   const handleApprove = async (recordId) => {
     try {
       await axios.put(
-        `http://localhost:5000/api/pre-employment/update/${recordId}`,
+        `https://healthcop-website-backend-1-vm93.onrender.com/api/pre-employment/update/${recordId}`,
         { status: "approve" },
         { headers: { Authorization: `Bearer ${token}` } }
       );

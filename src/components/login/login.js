@@ -819,7 +819,7 @@ function Login() {
     setLoading(true);
 
     try {
-      const response = await fetch("http://localhost:5000/api/login", {
+      const response = await fetch("https://healthcop-website-backend-1.onrender.com/api/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
@@ -828,7 +828,7 @@ function Login() {
 
       if (response.ok) {
         Cookies.set("loginEmail", email, { expires: 7, secure: true, sameSite: "Strict" });
-        const userRes = await fetch(`http://localhost:5000/api/user?email=${email}`);
+        const userRes = await fetch(`https://healthcop-website-backend-1.onrender.com/api/user?email=${email}`);
         const user = await userRes.json();
         setUserData(user);
 
@@ -862,7 +862,7 @@ function Login() {
 
   const fetchSites = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/sites");
+      const res = await axios.get("https://healthcop-website-backend-1.onrender.com/api/sites");
       setSites(res.data);
     } catch (err) {
       console.error("Error fetching sites:", err);

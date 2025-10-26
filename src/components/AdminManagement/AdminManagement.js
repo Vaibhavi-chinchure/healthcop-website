@@ -3344,7 +3344,7 @@ function AdminManagement() {
         setError("Please log in to fetch Doctor/Nurse data.");
         return;
       }
-      const response = await fetch("http://localhost:5000/api/doctor-nurse", {
+      const response = await fetch("https://healthcop-website-backend-1-vm93.onrender.com/api/doctor-nurse", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -3387,7 +3387,7 @@ function AdminManagement() {
         setError("Please log in to fetch client data.");
         return;
       }
-      const response = await fetch("http://localhost:5000/api/clients", {
+      const response = await fetch("https://healthcop-website-backend-1-vm93.onrender.com/api/clients", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -3517,8 +3517,8 @@ function AdminManagement() {
           console.log(`FormData for person ${index + 1}: ${key}=${value}`);
         }
         const url = editMode
-          ? `http://localhost:5000/api/doctor-nurse/${doctorNurseData.USRID}`
-          : "http://localhost:5000/api/doctor-nurse";
+          ? `https://healthcop-website-backend-1-vm93.onrender.com/api/doctor-nurse/${doctorNurseData.USRID}`
+          : "https://healthcop-website-backend-1-vm93.onrender.com/api/doctor-nurse";
         const method = editMode ? "PUT" : "POST";
         const response = await fetch(url, {
           method,
