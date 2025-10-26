@@ -1289,7 +1289,7 @@ export default function MedPanel() {
   const deviceName = navigator.userAgent || "Web Browser";
 
   const api = axios.create({ 
-    baseURL: "http://localhost:5000",
+    baseURL: "https://healthcop-website-backend-1-vm93.onrender.com",
     timeout: 10000, // Added timeout to prevent hanging
   });
 

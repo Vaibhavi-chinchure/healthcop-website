@@ -1456,7 +1456,7 @@ function NursePreEmployment() {
           formData.append("physicalDeformityImage", deformityFile);
         }
       });
-      const response = await fetch("http://localhost:5000/api/nurse-pre-employment", {
+      const response = await fetch("https://healthcop-website-backend-1-vm93.onrender.com/api/nurse-pre-employment", {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,
