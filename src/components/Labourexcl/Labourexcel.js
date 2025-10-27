@@ -330,7 +330,7 @@ function ApprovedLaborersExcel() {
   const fetchApprovedLaborers = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch("http://localhost:4000/api/nurse-pre-employment", {
+      const response = await fetch("https://healthcop-website-backend-1.onrender.com/api/nurse-pre-employment", {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,

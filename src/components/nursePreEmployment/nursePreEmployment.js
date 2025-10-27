@@ -4157,7 +4157,7 @@ function NursePreEmployment() {
           formData.append("physicalDeformityImage", deformityFile);
         }
       });
-      const response = await fetch("http://localhost:4000/api/nurse-pre-employment", {
+      const response = await fetch("https://healthcop-website-backend-1.onrender.com/api/nurse-pre-employment", {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -4195,7 +4195,7 @@ function NursePreEmployment() {
   const fetchLaborers = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch("http://localhost:4000/api/nurse-pre-employment", {
+      const response = await fetch("https://healthcop-website-backend-1.onrender.com/api/nurse-pre-employment", {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -4247,7 +4247,7 @@ function NursePreEmployment() {
       let clientName = '';
       let siteName = '';
       if (laborerData.site_id) {
-        const clientResponse = await fetch(`http://localhost:4000/api/clients`, {
+        const clientResponse = await fetch(`https://healthcop-website-backend-1.onrender.com/healthcop-website-backend/api/clients`, {
           method: "GET",
           headers: {
             Authorization: `Bearer ${token}`,

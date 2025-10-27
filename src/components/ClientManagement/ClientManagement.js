@@ -1298,8 +1298,8 @@ function ClientManagement({ onBack, editClient }) {
       }
 
       const url = editClient
-        ? `https://healthcop-website-backend-1-vm93.onrender.com/api/clients/${editClient.client_id}`
-        : "https://healthcop-website-backend-1-vm93.onrender.com/api/clients";
+        ? `https://healthcop-website-backend-1.onrender.com/api/clients/${editClient.client_id}`
+        : "https://healthcop-website-backend-1.onrender.com/api/clients";
       const method = editClient ? "PUT" : "POST";
 
       const response = await fetch(url, {
@@ -1463,7 +1463,7 @@ function ClientManagement({ onBack, editClient }) {
                     <p>
                       Current:{" "}
                       <a
-                        href={`https://healthcop-website-backend-1-vm93.onrender.com/uploads/${normalizeWorkOrderPath(site.workOrder)}`}
+                        href={`https://healthcop-website-backend-1.onrender.com/uploads/${normalizeWorkOrderPath(site.workOrder)}`}
                         target="_blank"
                         rel="noopener noreferrer"
                       >
