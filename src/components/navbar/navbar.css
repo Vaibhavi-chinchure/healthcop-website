@@ -1,96 +1,245 @@
+/* --- Navbar --- */
 .navbar {
-  position: sticky; /* Stays at top when scrolling */
+  position: sticky;
   top: 0;
   left: 0;
-  width: 96%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #c71f2d; /* Consistent dark background */
+  background: linear-gradient(90deg, #c71f2d, #e63946);
   padding: 12px 40px;
-  color: rgb(9, 8, 8);
-  font-family: Arial, sans-serif;
-  z-index: 1000; /* Ensures it appears above other content */
+  color: #ffffff;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-/* Logo */
+/* --- Logo --- */
 .navbar-logo {
-  font-size: 22px;
-  font-weight: bold;
-  color: #eeeaeb;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #ffffff;
   letter-spacing: 1px;
 }
 
-/* Menu */
+.navbar-logo-link {
+  text-decoration: none;
+  color: inherit;
+  transition: opacity 0.3s ease;
+}
+
+.navbar-logo-link:hover {
+  opacity: 0.9;
+}
+
+/* --- Hamburger Toggle --- */
+.navbar-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 4px;
+  transition: background 0.3s ease;
+}
+
+.navbar-toggle:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.navbar-toggle .nav-icon {
+  width: 28px;
+  height: 28px;
+  stroke: #ffffff;
+  stroke-width: 2;
+}
+
+/* --- Menu --- */
 .navbar-links {
   list-style: none;
   display: flex;
   gap: 30px;
+  margin: 0;
+  padding: 0;
 }
 
 .navbar-links li a {
   display: flex;
   align-items: center;
-  color: white;
+  color: #ffffff;
   text-decoration: none;
-  font-size: 14px;
-  position: relative;
+  font-size: 0.95rem;
+  font-weight: 500;
+  padding: 8px 12px;
+  border-radius: 4px;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.navbar-links li a:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #f1f1f1;
 }
 
 .nav-icon {
   width: 20px;
   height: 20px;
   stroke-width: 2;
-  stroke: #ffffff; /* White stroke */
+  stroke: #ffffff;
   fill: none;
 }
 
 .nav-text {
   margin-left: 8px;
-  opacity: 1; /* Always visible */
-  visibility: visible;
-  transform: translateX(0);
 }
 
-/* Buttons */
+/* --- Buttons --- */
 .navbar-buttons {
   display: flex;
   gap: 15px;
+  align-items: center;
 }
 
 .btn {
   background: transparent;
-  border: 1px solid #c71f2d;
-  color: white;
+  border: 1px solid #ffffff;
+  color: #ffffff;
   padding: 8px 16px;
   border-radius: 6px;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background 0.3s ease, color 0.3s ease;
+  transition: background 0.3s ease, color 0.3s ease, transform 0.2s ease;
+  font-size: 0.95rem;
+  font-weight: 500;
 }
 
 .btn:hover {
-  background: #c71f2d;
-  color: #0d1b2a;
+  background: #ffffff;
+  color: #c71f2d;
+  transform: scale(1.05);
 }
 
 .btn-icon {
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
   stroke-width: 2.5;
-  stroke: #f6efef; /* Default stroke */
+  stroke: #ffffff;
   fill: none;
 }
 
 .btn:hover .btn-icon {
-  stroke: #0d1b2a;
+  stroke: #c71f2d;
 }
 
 .btn-text {
   margin-left: 8px;
-  opacity: 1; /* Always visible */
-  visibility: visible;
-  transform: translateX(0);
+}
+
+/* --- Modal Overlay --- */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1001;
+}
+
+.modal-content {
+  width: 100%;
+  max-width: 360px;
+  max-height: 100vh;
+  overflow-y: hidden;
+  position: relative;
+  box-sizing: border-box;
+}
+
+/* --- Logo --- */
+.navbar-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Center the logo within the circle */
+  background: #ffffff; /* White background */
+  padding: 8px; /* Adjust padding to control circle size */
+  border-radius: 50%; /* Makes the background circular */
+  width: 56px; /* Fixed width to ensure circular shape */
+  height: 56px; /* Fixed height to match width for circle */
+}
+
+.navbar-logo-link {
+  text-decoration: none;
+  color: inherit;
+  transition: opacity 0.3s ease;
+}
+
+.navbar-logo-link:hover {
+  opacity: 0.9;
+}
+
+.navbar-logo-image {
+  height: 53px; /* Adjust size to fit within the circle */
+  width: auto;
+  object-fit: contain;
+}
+/* --- Responsive Design --- */
+
+@media (max-width: 768px) {
+  .navbar {
+    padding: 10px 20px;
+    flex-wrap: wrap;
+  }
+
+  .navbar-toggle {
+    display: flex;
+  }
+
+  /* Make navbar-links and buttons stack in normal flow */
+  .navbar-links,
+  .navbar-buttons {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    flex-direction: column;
+    background: linear-gradient(90deg, #c71f2d, #e63946);
+    gap: 0;
+    padding: 0;
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+    border-radius: 0 0 10px 10px;
+  }
+
+  /* Active state: expand links and buttons */
+  .navbar-links.active,
+  .navbar-buttons.active {
+    max-height: 1000px; /* Enough for all items + buttons */
+    padding: 10px 0;
+  }
+
+  .navbar-links li a,
+  .btn {
+    width: 100%;
+    padding: 12px 20px;
+    justify-content: flex-start;
+    border-radius: 0;
+    font-size: 1.1rem;
+  }
+
+  .navbar-links li a:hover,
+  .btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+    color: #fff;
+  }
+
+  .btn-text {
+    margin-left: 12px;
+    font-size: 1.1rem;
+  }
+
 }

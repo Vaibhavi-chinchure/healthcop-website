@@ -1,24 +1,45 @@
+/* --- Dashboard Container --- */
 .dashboard-container {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
+/* --- Topbar --- */
 .topbar {
-  position: fixed;       /* make sticky */
-  top: 0;                /* stick to top */
+  position: fixed;
+  top: 0;
   left: 0;
   right: 0;
-  z-index: 1000;         /* keep above sidebar/content */
-  height: 60px;          /* fixed height */
+  z-index: 1000;
+  height: 60px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 2rem;
-  background-color: #007bff;
+  background: linear-gradient(90deg, #007bff, #60a5fa); /* Match Login button gradient */
   color: white;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
+
+/* --- Sidebar Toggle (Hamburger) --- */
+.sidebar-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+}
+
+.sidebar-toggle-icon {
+  width: 24px;
+  height: 24px;
+  stroke: #ffffff;
+  stroke-width: 2;
+}
+
+/* --- Profile Section --- */
 .profile-section {
   display: flex;
   gap: 0.5rem;
@@ -33,6 +54,7 @@
   text-transform: capitalize;
 }
 
+/* --- Logout Button --- */
 .logout-btn {
   display: flex;
   align-items: center;
@@ -41,12 +63,16 @@
   background-color: #dc3545;
   color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 6px;
   cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: background 0.3s ease, transform 0.2s ease;
 }
 
 .logout-btn:hover {
   background-color: #c82333;
+  transform: scale(1.05);
 }
 
 .logout-icon {
@@ -54,30 +80,27 @@
   height: 20px;
 }
 
+/* --- Dashboard Main --- */
 .dashboard-main {
   display: flex;
   flex: 1;
+  margin-top: 60px; /* Account for fixed topbar */
 }
 
+/* --- Sidebar --- */
 .sidebar {
   width: 250px;
   background-color: #f8f9fa;
-  height: 100vh;
+  height: calc(100vh - 60px);
   position: fixed;
   top: 60px;
   left: 0;
   padding-top: 1rem;
   box-shadow: 2px 0 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
 }
 
-.sidebar-header {
-  padding: 1rem;
-  font-size: 1.2rem;
-  font-weight: bold;
-  text-align: center;
-  border-bottom: 1px solid #dee2e6;
-}
-
+/* --- Sidebar Links --- */
 .sidebar-links {
   list-style: none;
   padding: 0;
@@ -88,10 +111,12 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 1rem;
+  padding: 1rem 1.5rem;
   color: #333;
   text-decoration: none;
   font-size: 1rem;
+  font-weight: 500;
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
 .sidebar-link:hover {
@@ -108,9 +133,80 @@
   height: 20px;
 }
 
+/* --- Dashboard Content --- */
 .dashboard-content {
   margin-left: 250px;
   padding: 2rem;
   flex: 1;
   background-color: #f0f2f5;
+  min-height: calc(100vh - 60px);
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 768px) {
+  .sidebar-toggle {
+    display: block;
+  }
+
+  .sidebar {
+    width: 200px;
+    transform: translateX(-100%);
+  }
+
+  .sidebar.active {
+    transform: translateX(0);
+  }
+
+  .dashboard-content {
+    margin-left: 0;
+    padding: 1.5rem;
+  }
+
+  .topbar {
+    padding: 0 1rem;
+  }
+
+  .profile-section {
+    font-size: 1rem;
+  }
+
+  .logout-btn {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 500px) {
+  .topbar {
+    padding: 0 0.75rem;
+    height: 50px;
+  }
+
+  .dashboard-main {
+    margin-top: 50px;
+  }
+
+  .sidebar {
+    width: 100%;
+    top: 50px;
+    height: calc(100vh - 50px);
+  }
+
+  .dashboard-content {
+    padding: 1rem;
+  }
+
+  .profile-section {
+    font-size: 0.9rem;
+  }
+
+  .logout-btn {
+    padding: 0.4rem 0.6rem;
+    font-size: 0.85rem;
+  }
+
+  .sidebar-link {
+    padding: 0.8rem 1rem;
+    font-size: 0.95rem;
+  }
 }

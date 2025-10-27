@@ -3344,7 +3344,7 @@ function AdminManagement() {
         setError("Please log in to fetch Doctor/Nurse data.");
         return;
       }
-      const response = await fetch("https://healthcop-website-backend-1-vm93.onrender.com/api/doctor-nurse", {
+      const response = await fetch("https://healthcop-website-backend-1.onrender.com/api/doctor-nurse", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -3387,7 +3387,7 @@ function AdminManagement() {
         setError("Please log in to fetch client data.");
         return;
       }
-      const response = await fetch("https://healthcop-website-backend-1-vm93.onrender.com/api/clients", {
+      const response = await fetch("https://healthcop-website-backend-1.onrender.com/api/clients", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -3517,8 +3517,8 @@ function AdminManagement() {
           console.log(`FormData for person ${index + 1}: ${key}=${value}`);
         }
         const url = editMode
-          ? `https://healthcop-website-backend-1-vm93.onrender.com/api/doctor-nurse/${doctorNurseData.USRID}`
-          : "https://healthcop-website-backend-1-vm93.onrender.com/api/doctor-nurse";
+          ? `https://healthcop-website-backend-1.onrender.com/api/doctor-nurse/${doctorNurseData.USRID}`
+          : "https://healthcop-website-backend-1.onrender.com/api/doctor-nurse";
         const method = editMode ? "PUT" : "POST";
         const response = await fetch(url, {
           method,
@@ -3674,7 +3674,7 @@ function AdminManagement() {
                           <td>
                             {site.work_order ? (
                               <a
-                                href={`http://localhost:5000/uploads/${normalizeWorkOrderPath(site.work_order)}`}
+                                href={`https://healthcop-website-backend-1.onrender.com/uploads/${normalizeWorkOrderPath(site.work_order)}`}
                                 target="_blank"
                                 rel="noopener noreferrer"
                               >
@@ -3802,7 +3802,7 @@ function AdminManagement() {
                   <td>
                     {selectedProfessionalData.photo !== "N/A" ? (
                       <a
-                        href={`http://localhost:5000/uploads/${normalizePath(selectedProfessionalData.photo)}`}
+                        href={`https://healthcop-website-backend-1.onrender.com/uploads/${normalizePath(selectedProfessionalData.photo)}`}
                         target="_blank"
                         rel="noopener noreferrer"
                       >
@@ -3818,7 +3818,7 @@ function AdminManagement() {
                   <td>
                     {selectedProfessionalData.signature !== "N/A" ? (
                       <a
-                        href={`http://localhost:5000/uploads/${normalizePath(selectedProfessionalData.signature)}`}
+                        href={`https://healthcop-website-backend-1.onrender.com//uploads/${normalizePath(selectedProfessionalData.signature)}`}
                         target="_blank"
                         rel="noopener noreferrer"
                       >
@@ -3834,7 +3834,7 @@ function AdminManagement() {
                   <td>
                     {selectedProfessionalData.degreeCertificate !== "N/A" ? (
                       <a
-                        href={`http://localhost:5000/uploads/${normalizePath(selectedProfessionalData.degreeCertificate)}`}
+                        href={`https://healthcop-website-backend-1.onrender.com/uploads/${normalizePath(selectedProfessionalData.degreeCertificate)}`}
                         target="_blank"
                         rel="noopener noreferrer"
                       >
@@ -3850,7 +3850,7 @@ function AdminManagement() {
                   <td>
                     {selectedProfessionalData.aadharCard !== "N/A" ? (
                       <a
-                        href={`http://localhost:5000/uploads/${normalizePath(selectedProfessionalData.aadharCard)}`}
+                        href={`https://healthcop-website-backend-1.onrender.com/uploads/${normalizePath(selectedProfessionalData.aadharCard)}`}
                         target="_blank"
                         rel="noopener noreferrer"
                       >
@@ -3866,7 +3866,7 @@ function AdminManagement() {
                   <td>
                     {selectedProfessionalData.panCard !== "N/A" ? (
                       <a
-                        href={`http://localhost:5000/uploads/${normalizePath(selectedProfessionalData.panCard)}`}
+                        href={`https://healthcop-website-backend-1.onrender.com/uploads/${normalizePath(selectedProfessionalData.panCard)}`}
                         target="_blank"
                         rel="noopener noreferrer"
                       >
@@ -3882,7 +3882,7 @@ function AdminManagement() {
                   <td>
                     {selectedProfessionalData.cancelledCheque !== "N/A" ? (
                       <a
-                        href={`http://localhost:5000/uploads/${normalizePath(selectedProfessionalData.cancelledCheque)}`}
+                        href={`https://healthcop-website-backend-1.onrender.com/uploads/${normalizePath(selectedProfessionalData.cancelledCheque)}`}
                         target="_blank"
                         rel="noopener noreferrer"
                       >
@@ -3898,7 +3898,7 @@ function AdminManagement() {
                   <td>
                     {selectedProfessionalData.declaration !== "N/A" ? (
                       <a
-                        href={`http://localhost:5000/uploads/${normalizePath(selectedProfessionalData.declaration)}`}
+                        href={`https://healthcop-website-backend-1.onrender.com/uploads/${normalizePath(selectedProfessionalData.declaration)}`}
                         target="_blank"
                         rel="noopener noreferrer"
                       >
@@ -3961,7 +3961,7 @@ function AdminManagement() {
                           {editMode && data[field.name] && typeof data[field.name] === "string" && (
                             <div className="am-existing-file">
                               <p>Current: <a
-                                href={`http://localhost:5000/uploads/${normalizePath(data[field.name])}`}
+                                href={`https://healthcop-website-backend-1.onrender.com/uploads/${normalizePath(data[field.name])}`}
                                 target="_blank"
                                 rel="noopener noreferrer"
                               >

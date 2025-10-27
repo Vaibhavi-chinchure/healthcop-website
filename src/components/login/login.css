@@ -1,9 +1,23 @@
+/* --- Modal Overlay --- */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
 /* --- Container --- */
 .lg-login-container {
-  display: inline-block; /* Container only as big as the card */
-  background: linear-gradient(135deg, #e3f2fd, #d1e0ff);
-  border-radius: 12px; /* Match card's border-radius */
-  position: relative; /* For positioning the close button */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: transparent;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
@@ -12,9 +26,9 @@
   background: #ffffff;
   padding: 2rem;
   border-radius: 12px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
   width: 100%;
   max-width: 380px;
+  position: relative; /* Ensure card is a positioning context for close button */
   transition: all 0.3s ease;
   animation: fadeIn 0.6s ease-in-out;
 }
@@ -23,41 +37,53 @@
   transform: translateY(-3px);
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
 }
+
+/* Ensure close button is unaffected by card's hover transform */
+.lg-login-card:hover .lg-close-btn {
+  transform: none; /* Reset any inherited transform */
+}
+
 /* --- Close Button --- */
 .lg-close-btn {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 15px;
+  right: 15px;
   background: #f3f4f6;
   border: none;
   border-radius: 50%;
-  width: 32px;
-  height: 32px;
-  font-size: 1.4rem;
-  font-weight: bold;
-  color: #1f2937;
-  cursor: pointer;
-  z-index: 10;
+  width: 36px;
+  height: 36px;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.2s ease;
+  cursor: pointer;
+  z-index: 10;
+  transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease; /* Explicit transitions */
 }
 
 .lg-close-btn:hover {
   background: #e5e7eb;
-  color: #111827;
-  transform: scale(1.05);
+  transform: scale(1.1); /* Scale only the button */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Prevent disappearing */
 .lg-close-btn:active,
 .lg-close-btn:focus {
-  background: #e5e7eb;
-  color: #111827;
+  background: #d1d5db;
   outline: none;
+  transform: scale(0.95);
 }
 
+.lg-close-btn svg {
+  width: 20px;
+  height: 20px;
+  stroke: #1f2937;
+  transition: stroke 0.2s ease;
+}
+
+.lg-close-btn:hover svg {
+  stroke: #111827;
+}
 
 /* --- Title --- */
 .lg-login-title {
@@ -72,6 +98,12 @@
 /* --- Form Groups --- */
 .lg-form-group {
   margin-bottom: 1.5rem;
+  width: 100%;
+}
+
+/* Add spacing between the last form group and the button */
+.lg-form-group:last-of-type {
+  margin-bottom: 2rem; /* Increased spacing before the button */
 }
 
 /* --- Form Label --- */
@@ -83,16 +115,18 @@
   font-size: 0.95rem;
 }
 
-/* --- Form Input --- */
+/* --- Form Input (including select) --- */
 .lg-form-input {
   width: 100%;
-  padding: 0.75rem;
+  padding: 0.75rem 1rem;
   border: 1px solid #d1d5db;
   border-radius: 8px;
   font-size: 1rem;
   color: #1f2937;
   background-color: #f9fafb;
   transition: all 0.2s ease;
+  box-sizing: border-box;
+  appearance: none;
 }
 
 .lg-form-input:focus {
@@ -105,6 +139,7 @@
 /* --- Password Wrapper --- */
 .lg-password-wrapper {
   position: relative;
+  width: 100%;
 }
 
 /* --- Toggle Password --- */
@@ -129,7 +164,7 @@
 /* --- Buttons --- */
 .lg-login-submit-btn {
   width: 100%;
-  padding: 0.75rem;
+  padding: 0.75rem 1rem;
   background: linear-gradient(90deg, #2563eb, #60a5fa);
   color: #ffffff;
   border: none;
@@ -138,6 +173,8 @@
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
+  box-sizing: border-box;
+  margin-top: 1rem;
 }
 
 .lg-login-submit-btn:hover:not(:disabled) {
@@ -173,33 +210,6 @@
   margin-bottom: 10px;
   text-align: center;
 }
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0,0,0,0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
-
-/* Modal content */
-.modal-content {
-  background-color: #fff;
-  padding: 25px 30px;
-  width: 30%;
-  max-width: 900px;
-  border-radius: 10px;
-  position: relative;
-  max-height: 90vh;
-  overflow-y: auto;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-}
-
-
 
 /* --- Animations --- */
 @keyframes fadeIn {
@@ -235,11 +245,25 @@
   }
 
   .lg-form-input {
-    padding: 0.65rem;
+    padding: 0.65rem 1rem;
     font-size: 0.95rem;
   }
 
+  .lg-login-submit-btn {
+    padding: 0.65rem 1rem;
+  }
+
+  .lg-form-group:last-of-type {
+    margin-bottom: 1.75rem; /* Slightly reduced spacing for mobile */
+  }
+
   .lg-close-btn {
-    font-size: 1.25rem;
+    width: 32px;
+    height: 32px;
+  }
+
+  .lg-close-btn svg {
+    width: 18px;
+    height: 18px;
   }
 }
