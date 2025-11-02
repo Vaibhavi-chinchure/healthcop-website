@@ -53,17 +53,17 @@ function Login({ onClose = () => {}, openSignup = () => {} }) {
       const data = await response.json();
 
       if (response.ok) {
-        Cookies.set("loginEmail", email, { expires: 7, secure: true, sameSite: "Strict" });
+        Cookies.set("loginEmail", email, { expires: 7, secure: true, sameSite: "None" });
 
         const userRes = await fetch(`https://healthcop-website-backend-1.onrender.com/api/user?email=${email}`);
         const user = await userRes.json();
         setUserData(user);
 
-        Cookies.set("userId", user.USRID, { expires: 7, secure: true, sameSite: "Strict" });
-        Cookies.set("userName", user.name, { expires: 7, secure: true, sameSite: "Strict" });
+        Cookies.set("userId", user.USRID, { expires: 7, secure: true, sameSite: "None" });
+        Cookies.set("userName", user.name, { expires: 7, secure: true, sameSite: "None"});
 
         if (selectedSiteId) {
-          Cookies.set("siteId", selectedSiteId, { expires: 7, secure: true, sameSite: "Strict" });
+          Cookies.set("siteId", selectedSiteId, { expires: 7, secure: true, sameSite: "None" });
         }
 
         localStorage.setItem("token", data.token);
@@ -105,8 +105,8 @@ function Login({ onClose = () => {}, openSignup = () => {} }) {
       return;
     }
 
-    Cookies.set("siteId", selectedSite.site_id, { expires: 7, secure: true, sameSite: "Strict" });
-    Cookies.set("siteName", selectedSite.site_name, { expires: 7, secure: true, sameSite: "Strict" });
+    Cookies.set("siteId", selectedSite.site_id, { expires: 7, secure: true, sameSite: "None" });
+    Cookies.set("siteName", selectedSite.site_name, { expires: 7, secure: true, sameSite: "None" });
 
     setShowPopup(true);
     setShowSiteSelection(false);
