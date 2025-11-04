@@ -1,66 +1,94 @@
+/* Labourecxl.css - Professional Layout Styles */
 
-/* Use the same root variables as in the previous CSS for consistency */
+/* Root Variables for Consistency */
 :root {
   --primary-color: #3182ce;
-  --primary-hover: #2b6cb0;
-  --secondary-color: #e2e8f0;
-  --secondary-hover: #cbd5e0;
-  --text-dark: #2d3748;
-  --text-muted: #4a5568;
-  --error-color: #e53e3e;
-  --border-color: #e2e8f0;
-  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
-  --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.15);
-  --border-radius: 6px;
-  --spacing-sm: 8px;
-  --spacing-md: 12px;
-  --spacing-lg: 20px;
-  --font-size-base: 14px;
-  --font-size-sm: 12px;
-  --font-size-lg: 16px;
-  --font-family: 'Arial', sans-serif;
+  --primary-hover: #3182ce;
+  --secondary-color: #64748b;
+  --success-color: #059669;
+  --error-color: #dc2626;
+  --warning-color: #d97706;
+  --text-dark: #111827;
+  --text-light: #6b7280;
+  --bg-light: #f9fafb;
+  --bg-white: #ffffff;
+  --border-color: #d1d5db;
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --border-radius: 0.5rem;
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
 }
 
 /* Container */
 .ale-container {
-  max-width: 800px;
-  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   padding: var(--spacing-lg);
-  background-color: #ffffff;
-  box-shadow: var(--shadow-sm);
-  border-radius: var(--border-radius);
+  background-color: var(--bg-light);
   font-family: var(--font-family);
 }
 
-/* Title */
+.ale-card {
+  background: var(--bg-white);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-md);
+  padding: var(--spacing-xl);
+  width: 100%;
+  max-width: 500px;
+  transition: box-shadow 0.3s ease;
+}
+
+.ale-card:hover {
+  box-shadow: var(--shadow-lg);
+}
+
+/* Title and Subtitle */
 .ale-title {
-  font-size: 24px;
+  font-size: 1.875rem;
   font-weight: 700;
   color: var(--text-dark);
-  margin-bottom: var(--spacing-lg);
+  margin-bottom: var(--spacing-sm);
   text-align: center;
+  line-height: 1.2;
+}
+
+.ale-subtitle {
+  color: var(--text-light);
+  text-align: center;
+  margin-bottom: var(--spacing-xl);
+  font-size: var(--font-size-sm);
 }
 
 /* Form */
 .ale-form {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: var(--spacing-lg);
+  gap: var(--spacing-md);
 }
 
 /* Date Group */
 .ale-date-group {
   display: flex;
   flex-direction: column;
-  width: 100%;
-  max-width: 300px;
+  gap: var(--spacing-xs);
 }
 
 .ale-date-group label {
   font-weight: 600;
   color: var(--text-dark);
-  margin-bottom: var(--spacing-sm);
+  font-size: var(--font-size-sm);
 }
 
 .ale-date-input {
@@ -69,95 +97,60 @@
   border-radius: var(--border-radius);
   font-size: var(--font-size-base);
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  background-color: var(--bg-white);
 }
 
 .ale-date-input:focus {
   outline: none;
   border-color: var(--primary-color);
-  box-shadow: 0 0 4px rgba(49, 130, 206, 0.3);
+  box-shadow: 0 0 0 3px rgb(37 99 235 / 0.1);
 }
 
 /* Download Button */
 .ale-download-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-sm);
   background-color: var(--primary-color);
   color: #ffffff;
   padding: var(--spacing-md) var(--spacing-lg);
   border: none;
   border-radius: var(--border-radius);
   cursor: pointer;
-  font-size: var(--font-size-lg);
+  font-size: var(--font-size-base);
   font-weight: 600;
+  transition: all 0.3s ease;
   box-shadow: var(--shadow-sm);
-  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-  width: 100%;
-  max-width: 300px;
 }
 
 .ale-download-button:hover:not(:disabled) {
   background-color: var(--primary-hover);
-  transform: translateY(-2px);
+  transform: translateY(-1px);
   box-shadow: var(--shadow-md);
 }
 
 .ale-download-button:disabled {
-  background-color: #a0aec0;
+  background-color: var(--secondary-color);
   cursor: not-allowed;
+  transform: none;
+  box-shadow: var(--shadow-sm);
 }
 
-.ale-download-button:focus {
-  outline: 2px solid var(--primary-color);
-  outline-offset: 2px;
-}
-/* Existing styles remain unchanged */
-
-
-.ale-title {
-  font-size: 24px;
-  margin-bottom: 20px;
+.ale-download-icon {
+  width: 20px;
+  height: 20px;
 }
 
-.ale-form {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-.ale-date-group {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-.ale-date-input {
-  padding: 8px;
-  font-size: 16px;
-  width: 100%;
-  max-width: 200px;
-}
-
-.ale-download-button {
-  padding: 10px 20px;
-  background-color: #28a745;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
-}
-
-.ale-download-button:disabled {
-  background-color: #6c757d;
-  cursor: not-allowed;
-}
-
+/* Loading State */
 .ale-loading {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: var(--spacing-sm);
 }
 
 .ale-spinner {
-  border: 2px solid #f3f3f3;
+  border: 2px solid rgba(255, 255, 255, 0.3);
   border-top: 2px solid #ffffff;
   border-radius: 50%;
   width: 16px;
@@ -170,38 +163,48 @@
   100% { transform: rotate(360deg); }
 }
 
-/* New styles for the error popup */
+/* Error Popup */
 .ale-error-popup {
   position: fixed;
-  top: 20px;
-  right: 20px;
-  background-color: #ffe6e6;
-  color: red;
-  padding: 15px 20px;
-  border-radius: 5px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  top: 1.5rem;
+  right: 1.5rem;
+  background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+  color: var(--error-color);
+  padding: var(--spacing-md) var(--spacing-lg);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-lg);
+  border-left: 4px solid var(--error-color);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  max-width: 300px;
-  z-index: 1000;
-  animation: slideIn 0.3s ease-in-out;
+  max-width: 400px;
+  z-index: 1050;
+  animation: slideInRight 0.3s ease-out;
+  font-size: var(--font-size-sm);
 }
 
 .ale-popup-close {
   background: none;
   border: none;
-  color: red;
-  font-size: 18px;
+  color: var(--error-color);
+  font-size: 1.5rem;
   cursor: pointer;
-  margin-left: 10px;
+  padding: 0;
+  margin-left: var(--spacing-md);
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background-color 0.2s ease;
 }
 
 .ale-popup-close:hover {
-  color: darkred;
+  background-color: rgba(220, 38, 38, 0.1);
 }
 
-@keyframes slideIn {
+@keyframes slideInRight {
   from {
     transform: translateX(100%);
     opacity: 0;
@@ -212,40 +215,63 @@
   }
 }
 
+/* Footer */
+.ale-footer {
+  margin-top: var(--spacing-xl);
+  padding-top: var(--spacing-lg);
+  border-top: 1px solid var(--border-color);
+  text-align: center;
+}
+
+.ale-footer p {
+  color: var(--text-light);
+  font-size: var(--font-size-sm);
+  margin: 0;
+}
+
+.ale-count {
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .ale-container {
     padding: var(--spacing-md);
+    min-height: calc(100vh - 3rem);
+  }
+
+  .ale-card {
+    padding: var(--spacing-lg);
+    max-width: 100%;
   }
 
   .ale-title {
-    font-size: 20px;
+    font-size: 1.5rem;
   }
 
-  .ale-form {
-    gap: var(--spacing-md);
+  .ale-subtitle {
+    font-size: var(--font-size-xs);
   }
 
-  .ale-date-group {
-    max-width: 100%;
-  }
-
-  .ale-download-button {
-    max-width: 100%;
+  .ale-error-popup {
+    top: 1rem;
+    right: 1rem;
+    left: 1rem;
+    max-width: none;
   }
 }
 
 @media (max-width: 480px) {
   .ale-title {
-    font-size: 18px;
+    font-size: 1.25rem;
   }
 
   .ale-date-input {
-    padding: var(--spacing-sm);
+    font-size: var(--font-size-sm);
   }
 
   .ale-download-button {
-    padding: var(--spacing-sm) var(--spacing-md);
-    font-size: var(--font-size-base);
+    font-size: var(--font-size-sm);
   }
 }

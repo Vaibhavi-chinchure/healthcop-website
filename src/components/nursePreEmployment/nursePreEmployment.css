@@ -1,7 +1,7 @@
 /* Root variables for consistent theming */
 :root {
   --primary-color: #3182ce;
-  --primary-hover: #2b6cb0;
+  --primary-hover: #3182ce;
   --secondary-color: #e2e8f0;
   --secondary-hover: #cbd5e0;
   --text-dark: #2d3748;
@@ -22,7 +22,7 @@
 
 /* Container for the entire component */
 .npe-container {
-  margin-top: 50px;
+  margin-top: 0px;
   max-width: 1400px;
 
   padding: var(--spacing-lg);
@@ -49,7 +49,7 @@
 
 /* Open Form Button */
 .npe-open-form-button {
-  background-color: var(--primary-color);
+  background-color: #3182ce;
   color: #ffffff;
   padding: var(--spacing-md) var(--spacing-lg);
   border: none;
@@ -62,13 +62,13 @@
 }
 
 .npe-open-form-button:hover {
-  background-color: var(--primary-hover);
+  background-color: #3182ce;
   transform: translateY(-2px);
   box-shadow: var(--shadow-md);
 }
 
 .npe-open-form-button:focus {
-  outline: 2px solid var(--primary-color);
+  outline: 2px solid #3182ce;
   outline-offset: 2px;
 }
 
@@ -86,8 +86,8 @@
 .npe-tabs button {
   padding: var(--spacing-sm) var(--spacing-md);
   border: none;
-  background-color: var(--secondary-color);
-  color: var(--text-muted);
+  background-color:#3182ce;
+  color: white;
   cursor: pointer;
   border-radius: var(--border-radius);
   font-size: var(--font-size-base);
@@ -99,12 +99,12 @@
 }
 
 .npe-tabs button:focus {
-  outline: 2px solid var(--primary-color);
+  outline: 2px solid v#3182ce;
   outline-offset: 2px;
 }
 
 .npe-tab-active {
-  background-color: var(--primary-color) !important;
+  background-color: #3182ce !important;
   color: #ffffff !important;
 }
 
@@ -137,7 +137,7 @@
 
 .npe-search-bar:focus {
   outline: none;
-  border-color: var(--primary-color);
+  border-color: #3182ce;
   box-shadow: 0 0 4px rgba(49, 130, 206, 0.3);
 }
 
@@ -179,26 +179,26 @@
 }
 
 .npe-status-table td button:first-child:hover {
-  background-color: var(--primary-color);
+  background-color: #3182ce;
   color: #ffffff;
   transform: translateY(-1px);
   box-shadow: var(--shadow-sm);
 }
 
 .npe-status-table td button:first-child:focus {
-  outline: 2px solid var(--primary-color);
+  outline: 2px solid#3182ce;
   outline-offset: 2px;
 }
 
 /* Download PDF Button */
 .npe-status-table td button:last-child {
-  background-color: var(--primary-color);
+  background-color: #3182ce;
   color: #ffffff;
   border: none;
 }
 
 .npe-status-table td button:last-child:hover {
-  background-color: var(--primary-hover);
+  background-color:#3182ce;
   transform: translateY(-1px);
   box-shadow: var(--shadow-md);
 }
