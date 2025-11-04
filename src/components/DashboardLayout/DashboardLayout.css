@@ -60,8 +60,8 @@
   align-items: center;
   gap: 0.5rem;
   padding: 0.5rem 1rem;
-  background-color: #dc3545;
-  color: white;
+  background-color: #fff;
+  color:#3182ce;
   border: none;
   border-radius: 6px;
   cursor: pointer;
@@ -71,7 +71,7 @@
 }
 
 .logout-btn:hover {
-  background-color: #c82333;
+  background-color: gray;
   transform: scale(1.05);
 }
 
