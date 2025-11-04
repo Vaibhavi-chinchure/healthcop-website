@@ -5977,7 +5977,8 @@ import React, { useState, useRef, useEffect } from "react";
 import { createPortal } from "react-dom";
 import jsPDF from 'jspdf';
 import { icons } from './logobase64';
-import Cookies from 'js-cookie'; // <-- Make sure this is installed: npm install js-cookie
+import Cookies from 'js-cookie';
+import api from '../api/api'; // <-- Your Axios instance
 import "./nursePreEmployment.css";
 
 function NursePreEmployment() {
@@ -5992,6 +5993,16 @@ function NursePreEmployment() {
   const [activeTab, setActiveTab] = useState('approved');
   const [selectedLaborer, setSelectedLaborer] = useState(null);
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
+
+  // Helper to get both siteId and userId from cookies and send as headers
+  const getAuthHeaders = () => {
+    const siteId = Cookies.get('siteId');
+    const userId = Cookies.get('userId');
+    return {
+      ...(siteId && { "x-site-id": siteId }),
+      ...(userId && { "x-user-id": userId }),
+    };
+  };
 
   const camelToSnake = (key) => key.replace(/([A-Z])/g, '_$1').toLowerCase();
   const camelToSnakeObj = (obj) => {
@@ -6065,12 +6076,7 @@ function NursePreEmployment() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-    const token = localStorage.getItem("token");
-    if (!token) {
-      alert("Please log in to submit data.");
-      setIsSubmitting(false);
-      return;
-    }
+
     const requiredFieldKeys = fields.filter(f => f.required).map(f => f.key);
     let newErrors = laborers.map(() => ({}));
     let hasErrors = false;
@@ -6100,12 +6106,11 @@ function NursePreEmployment() {
       setIsSubmitting(false);
       return;
     }
+
     try {
       const processedLaborers = laborers
         .map((laborer, index) => {
-          if (!laborer.name || !laborer.name.trim()) {
-            return null;
-          }
+          if (!laborer.name || !laborer.name.trim()) return null;
           const proc = camelToSnakeObj(laborer);
           const polices = ["pallor", "lymphadenopathy", "icterus", "cyanosis", "edema"];
           polices.forEach((p) => (proc[p] = "No"));
@@ -6126,6 +6131,7 @@ function NursePreEmployment() {
           return proc;
         })
         .filter(l => l !== null);
+
       const formData = new FormData();
       formData.append("data", JSON.stringify(processedLaborers));
       laborers.forEach((laborer, i) => {
@@ -6138,16 +6144,14 @@ function NursePreEmployment() {
           formData.append("physicalDeformityImage", deformityFile);
         }
       });
-      const response = await fetch("https://healthcop-website-backend-1.onrender.com/api/nurse-pre-employment", {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        body: formData,
-        credentials: 'include'
+
+      const response = await api.post("/nurse-pre-employment", formData, {
+        headers: getAuthHeaders(),  // Sends x-site-id + x-user-id
+        withCredentials: true,
       });
-      if (response.ok) {
-        const result = await response.json();
+
+      if (response.status === 200 || response.status === 201) {
+        const result = response.data;
         alert(`${processedLaborers.length} laborer(s) saved successfully! Laborer IDs: ${result.laborer_ids?.join(", ") || "Generated"}`);
         setIsPopupOpen(false);
         setLaborers(Array(1).fill({}));
@@ -6155,19 +6159,11 @@ function NursePreEmployment() {
         setErrors(Array(1).fill({}));
         fetchLaborers();
       } else {
-        const clonedResponse = response.clone();
-        let errorText = "Failed to save data";
-        try {
-          const error = await clonedResponse.json();
-          errorText = error.error || errorText;
-        } catch (parseErr) {
-          errorText = await response.text();
-          errorText = errorText.substring(0, 200);
-        }
-        alert(`Error: ${errorText}`);
+        throw new Error(response.data?.error || "Failed to save");
       }
     } catch (error) {
-      alert(`Error: ${error.message}`);
+      const msg = error.response?.data?.error || error.message || "Unknown error";
+      alert(`Error: ${msg}`);
     } finally {
       setIsSubmitting(false);
     }
@@ -6175,16 +6171,13 @@ function NursePreEmployment() {
 
   const fetchLaborers = async () => {
     try {
-      const token = localStorage.getItem("token");
-      const response = await fetch("https://healthcop-website-backend-1.onrender.com/api/nurse-pre-employment", {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        credentials: 'include'
+      const response = await api.get("/nurse-pre-employment", {
+        headers: getAuthHeaders(),  // Sends x-site-id + x-user-id
+        withCredentials: true,
       });
-      if (response.ok) {
-        const data = await response.json();
+
+      if (response.status === 200) {
+        const data = response.data;
         const approved = data.filter(l => l.status === 'approve');
         const pending = data.filter(l => l.status === 'pending');
         setApprovedLaborers(approved);
@@ -6224,19 +6217,16 @@ function NursePreEmployment() {
 
   const downloadPDF = async (laborerData) => {
     try {
-      const token = localStorage.getItem("token");
       let clientName = '';
       let siteName = '';
       if (laborerData.site_id) {
-        const clientResponse = await fetch(`https://healthcop-website-backend-1.onrender.com/api/clients`, {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-          credentials: 'include'
+        const clientResponse = await api.get("/clients", {
+          headers: getAuthHeaders(),  // Sends x-site-id + x-user-id
+          withCredentials: true,
         });
-        if (clientResponse.ok) {
-          const clients = await clientResponse.json();
+
+        if (clientResponse.status === 200) {
+          const clients = clientResponse.data;
           const clientWithSite = clients.find(c => c.sites.some(s => s.site_id === laborerData.site_id));
           if (clientWithSite) {
             clientName = clientWithSite.client_name || '';
@@ -6245,6 +6235,7 @@ function NursePreEmployment() {
           }
         }
       }
+
       const doc = new jsPDF();
       const pageWidth = doc.internal.pageSize.getWidth();
       const pageHeight = doc.internal.pageSize.getHeight();
@@ -6252,7 +6243,6 @@ function NursePreEmployment() {
       doc.setFontSize(12);
       doc.setFont("helvetica", "bold");
       doc.setFontSize(16);
-      doc.setFont("helvetica", "bold");
       doc.text("Form XVIII", pageWidth / 2, yPos, { align: 'center' });
       yPos += 10;
       doc.setFontSize(12);
@@ -6264,7 +6254,7 @@ function NursePreEmployment() {
       const title = "CERTIFICATE OF MEDICAL EXAMINATION";
       const textWidth = doc.getTextWidth(title);
       const textX = (pageWidth - textWidth) / 2;
-      const textY = yPos-5;
+      const textY = yPos - 5;
       doc.text(title, pageWidth / 2, textY, { align: 'center' });
       doc.setLineWidth(0.5);
       doc.line(textX, textY + 2, textX + textWidth, textY + 2);
@@ -6273,7 +6263,7 @@ function NursePreEmployment() {
       doc.setFont("helvetica", "normal");
       doc.setDrawColor(0, 0, 0);
       doc.setLineWidth(0.2);
-      const tableTop = yPos-20;
+      const tableTop = yPos - 20;
       const tableLeft = 35;
       const tableWidth = pageWidth - 70;
       const col1Width = 15;
@@ -6391,17 +6381,13 @@ function NursePreEmployment() {
       const certText = `I hereby certify that I have personally examined(${laborerData.name || ''}) ${genderRef} Of ${(laborerData.parentage || '')} residing At ${(laborerData.residence || '')} who is desirous of being employed in building and construction work and that his/her age as nearly as can be ascertained from my examination is ${ageStr} years and that he/she is fit for employment in building and construction work as an adult/adolescent.`;
       const certSplitWidth = contentWidth * 0.8;
       const certSplit = doc.splitTextToSize(certText, certSplitWidth);
-      while (certSplit.length < 8) {
-        certSplit.push('');
-      }
-      if (certSplit.length > 8) {
-        certSplit.length = 8;
-      }
-     let certY = currentY;
-certSplit.forEach((line) => {
-  doc.text(line, contentLeft, certY + cellPadding);  // Fixed: was cellCutoff
-  certY += subRowHeight;
-});
+      while (certSplit.length < 8) certSplit.push('');
+      if (certSplit.length > 8) certSplit.length = 8;
+      let certY = currentY;
+      certSplit.forEach((line) => {
+        doc.text(line, contentLeft, certY + cellPadding);
+        certY += subRowHeight;
+      });
       currentY = certY;
       drawHLine(currentY);
       currentY += lineHeight;
@@ -6410,11 +6396,8 @@ certSplit.forEach((line) => {
       currentY += subRowHeight;
       let reasonText1 = '(1) Refusal certificate';
       let reasonText2 = '(2) Certificate being revoked';
-      if (laborerData.reason_for === 'Refusal Certificate') {
-        reasonText1 = '(1) Refusal certificate';
-      } else if (laborerData.reason_for === 'Certificate Being Revoked') {
-        reasonText2 = '(2) Certificate being revoked';
-      }
+      if (laborerData.reason_for === 'Refusal Certificate') reasonText1 = '(1) Refusal certificate';
+      else if (laborerData.reason_for === 'Certificate Being Revoked') reasonText2 = '(2) Certificate being revoked';
       doc.text(reasonText1, contentLeft, currentY + cellPadding);
       currentY += subRowHeight;
       doc.text(reasonText2, contentLeft, currentY + cellPadding);
@@ -6441,7 +6424,7 @@ certSplit.forEach((line) => {
       doc.addPage();
       let page2Y = 5;
       try {
-        doc.addImage('/images/about2.png', 'JPG', 20, page2Y, 40,35);
+        doc.addImage('/images/about2.png', 'JPG', 20, page2Y, 40, 35);
       } catch (imgErr) {
         console.warn("Logo image not found:", imgErr);
       }
@@ -6514,11 +6497,9 @@ certSplit.forEach((line) => {
       doc.setFont("helvetica", "normal");
       page2Y += 8;
       const polices = ["pallor", "lymphadenopathy", "icterus", "cyanosis", "edema"];
-      const shortMap = {pallor: 'P', lymphadenopathy: 'L', icterus: 'I', cyanosis: 'C', edema: 'E'};
+      const shortMap = { pallor: 'P', lymphadenopathy: 'L', icterus: 'I', cyanosis: 'C', edema: 'E' };
       let policeRemarks = polices.filter(p => laborerData[p] === "Yes").map(p => `${shortMap[p]}:Yes`).join(', ');
-      if (policeRemarks === '') {
-        policeRemarks = 'All No';
-      }
+      if (policeRemarks === '') policeRemarks = 'All No';
       const policeRow = ['P/O/L/I/C/E', policeRemarks, '', ''];
       let tableData = [
         ['Height', String(laborerData.height || ''), 'Epilepsy', laborerData.known_case_of_epilepsy || ''],
@@ -6539,16 +6520,11 @@ certSplit.forEach((line) => {
       const textLineHeight = 4;
       const topPadding = 7;
       const bottomPadding = 2;
-      const drawHLine2 = (y) => {
-        doc.line(table2Left, y, table2Left + table2Width, y);
-      };
-      const drawVLine2 = (x, startY, endY) => {
-        doc.line(x, startY, x, endY);
-      };
+      const drawHLine2 = (y) => doc.line(table2Left, y, table2Left + table2Width, y);
+      const drawVLine2 = (x, startY, endY) => doc.line(x, startY, x, endY);
       const getCellHeight = (text, maxWidth) => {
         const splitText = doc.splitTextToSize(text || '', maxWidth);
-        const numLines = splitText.length;
-        return Math.max(standardRowHeight, topPadding + bottomPadding + numLines * textLineHeight);
+        return Math.max(standardRowHeight, topPadding + bottomPadding + splitText.length * textLineHeight);
       };
       const drawWrappedCell = (text, x, y, maxWidth) => {
         const splitText = doc.splitTextToSize(text || '', maxWidth);
@@ -6823,7 +6799,6 @@ certSplit.forEach((line) => {
         </button>
       </div>
 
-      {/* Show current site */}
       <div style={{ padding: '10px', background: '#f0f0f0', margin: '10px 0', borderRadius: '5px', fontSize: '14px' }}>
         <strong>Current Site:</strong> {Cookies.get('siteName') || 'Not Selected'} (ID: {Cookies.get('siteId') || 'N/A'})
       </div>
